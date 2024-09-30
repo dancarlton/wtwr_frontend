@@ -15,8 +15,17 @@
   border-radius: 20px 20px 0 0;
 }
 
-.modal__close {
-  color: white;
+.modal__close_type_image {
+  background-image: url('../../assets/close-button-white.svg');
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  border: none;
+  cursor: pointer;
 }
 
 .modal__footer {
