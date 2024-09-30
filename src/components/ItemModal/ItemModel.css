@@ -1,0 +1,38 @@
+.modal__content_type_image {
+  padding: 0;
+  border-radius: 20px;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.modal__image {
+  height: 498px;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px 20px 0 0;
+}
+
+.modal__close {
+  color: white;
+}
+
+.modal__footer {
+  padding: 0 32px;
+  font-size: 20px;
+  font-family: 'Cabinent-Grotesk', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  font-weight: 700;
+}
+
+.modal__name {
+  margin: 20px 0 12px 0;
+  padding: 0;
+}
+
+.modal__weather {
+  margin: 0 0 32px 0;
+  padding: 0;
+}

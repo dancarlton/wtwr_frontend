@@ -2,14 +2,22 @@
 import { useState } from 'react'
 
 import './App.css'
+import '../../../src/vendor/fonts.css'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
 import ModalWithForm from '../ModalWithForm/ModalWithForm'
+import ItemModal from '../ItemModal/ItemModal'
 
 const App = () => {
   const [weatherData, setWeatherData] = useState({ type: 'cold' })
   const [activeModal, setActiveModal] = useState('')
+  const [selectedCard, setSelectedCard] = useState('')
+
+  const handleCardClick = (card) => {
+    setActiveModal('preview')
+    setSelectedCard(card)
+  }
 
   const handleAddClick = () => {
     setActiveModal('add-garmet')
@@ -23,7 +31,7 @@ const App = () => {
     <div className='page'>
       <div className='page__content'>
         <Header handleAddClick={handleAddClick}/>
-        <Main weatherData={weatherData} />
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
 
@@ -31,7 +39,7 @@ const App = () => {
         title='New garment'
         buttonText='Add garmet'
         activeModal={activeModal}
-        handleCloseClick={closeActiveModal} 
+        onClose={closeActiveModal}
       >
         <label htmlFor='name' className='modal__label'>
           Name{' '}
@@ -70,6 +78,8 @@ const App = () => {
           </label>
         </fieldset>
       </ModalWithForm>
+
+      <ItemModal activeModal={activeModal} card={selectedCard} onClose={closeActiveModal} />
     </div>
   )
 }
