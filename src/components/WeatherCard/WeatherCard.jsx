@@ -1,14 +1,33 @@
 import './WeatherCard.css'
-import sunny from '../../assets/sunny.svg'
+import { weatherOptions, defaultWeatherOptions  } from '../../utils/constants'
 
-function WeatherCard() {
+function WeatherCard({ weatherData}) {
+  // debugger
+  const filteredOptions = weatherOptions.filter(option => {
+    return (
+      option.day === weatherData.isDay &&
+      option.condition === weatherData.condition
+    )
+  })
+  let weatherOption
+  if (filteredOptions.length === 0) {
+    weatherOption = defaultWeatherOptions[weatherData.isDay ? 'day' : 'night']
+  } else {
+    weatherOption = filteredOptions[0]
+  }
+
   return (
     <section className='weather-card'>
-        <p className="weather-card__temp">75 &deg;</p>
-        <img src={sunny} alt="sunny" className="weather-card__image" />
+      <p className='weather-card__temp'>{weatherData.temp.F} &deg;</p>
+      <img
+        src={weatherOption?.url}
+        alt={`Card showing ${weatherOption?.day ? 'day' : 'night'}time${
+          weatherOption?.condition ? ` ${weatherOption.condition}` : ''
+        } weather`}
+        className='weather-card__image'
+      />
     </section>
   )
 }
-
 
 export default WeatherCard

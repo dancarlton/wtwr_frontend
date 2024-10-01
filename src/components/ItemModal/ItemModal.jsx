@@ -1,7 +1,7 @@
 import './ItemModel.css'
 
 function ItemModal({ activeModal, card, onClose }) {
-  console.log(card)
+
   return (
     <div className={`modal ${activeModal === 'preview' && 'modal_opened'}`}>
       <div className='modal__content_type_image'>

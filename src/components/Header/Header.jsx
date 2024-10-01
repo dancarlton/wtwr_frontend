@@ -2,7 +2,7 @@ import './Header.css'
 import logo from '/src/assets/logo.svg'
 import avatar from '/src/assets/avatar-true.svg'
 
-function Header({ handleAddClick }) {
+function Header({ handleAddClick, weatherData }) {
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
@@ -12,7 +12,7 @@ function Header({ handleAddClick }) {
     <div className='header'>
       <img src={logo} alt='WTWR Logo' className='header__logo' />
       <p className='header__date'>
-        {currentDate.month} {currentDate.day} date / location
+        {currentDate} / {weatherData.city}
       </p>
       <button
         onClick={handleAddClick}
