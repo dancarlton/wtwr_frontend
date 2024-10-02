@@ -1,11 +1,13 @@
 import './Footer.css'
 
+const currentYear = new Date().getFullYear()
+
 function Footer() {
   return (
-    <div className='footer'>
+    <footer className='footer'>
         <p>Developed by Dan Carlton</p>
-        <p>2024</p>
-    </div>
+        <p>{currentYear}</p>
+    </footer>
   )
 }
 

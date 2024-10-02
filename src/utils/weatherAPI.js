@@ -1,6 +1,6 @@
 
 export const getWeather = ({ latitude, longitude }) => {
-    const APIkey = import.meta.env.VITE_WEATHER_API_KEY
+    const APIkey = import.meta.env.VITE_WEATHER_API_KEY || '387e9ffa4d9925a9be99acb31254b4c1'
 
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
