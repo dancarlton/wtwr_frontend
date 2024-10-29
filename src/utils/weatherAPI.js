@@ -1,6 +1,6 @@
-
 export const getWeather = ({ latitude, longitude }) => {
-    const APIkey = import.meta.env.VITE_WEATHER_API_KEY || '387e9ffa4d9925a9be99acb31254b4c1'
+  const APIkey =
+    import.meta.env.VITE_WEATHER_API_KEY || '387e9ffa4d9925a9be99acb31254b4c1'
 
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}
@@ -15,12 +15,17 @@ export const getWeather = ({ latitude, longitude }) => {
 }
 
 export const filterWeatherData = data => {
+  // debugger
   const result = {}
   result.city = data.name
-  result.temp = { F: data.main.temp }
+  result.temp = {
+    F: Math.round(data.main.temp),
+    C: Math.round((data.main.temp- 32)  * 5 / 9),
+  }
   result.type = getWeatherType(result.temp.F)
   result.condition = data.weather[0].main.toLowerCase()
   result.isDay = isDay(data.sys, Date.now())
+
   return result
 }
 
