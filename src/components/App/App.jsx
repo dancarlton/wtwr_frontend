@@ -15,7 +15,6 @@ import { Routes, Route } from 'react-router-dom'
 import Profile from '../Profile/Profile'
 import AddItemModal from '../AddItemModal/AddItemModal'
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal'
-import { defaultClothingItems } from '../../utils/constants'
 import { getItems, addItem, deleteItem } from '../../utils/api'
 
 const App = () => {
@@ -47,24 +46,27 @@ const App = () => {
   }
 
   const onAddItem = formData => {
-    console.log(formData)
-    const newItem = {name: formData.name, link: formData.imageUrl, weather: formData.weatherType}
-    setClothingItems([newItem, ...clothingItems])
+    addItem(formData.name, formData.imageUrl, formData.weatherType)
+      .then(savedItem => {
+        if (savedItem) {
+          setClothingItems([savedItem, ...clothingItems])
+        }
+      })
+      .catch(console.error)
   }
 
   const handleCardDelete = card => {
-    //delete the card from the server
-    //if successful, delete the card from the dom
-    const updatedClothingItems = clothingItems.filter((clothingItem)=>{
-      //we want this function to return true, if the card id doesn't match the clothingITem id, otherwise false
+    deleteItem(card.id)
+      .then(() => {
+        setClothingItems(clothingItems.filter(item => item.id !== card.id))
+        closeActiveModal()
       })
-      setClothingItems(updatedClothingItems)
-    //close the modal
+      .catch(console.error)
   }
 
-  const openConfirmationModal = () => {
-    //
-  }
+  // const openConfirmationModal = () => {
+  //   //
+  // }
 
   useEffect(() => {
     // debugger
@@ -79,15 +81,14 @@ const App = () => {
   // GET Items
   useEffect(() => {
     getItems()
-    .then(data => {
-      // console.log(data)
-      setClothingItems(data)
-    })
-    .catch(console.error)
+      .then(data => {
+        // console.log(data)
+        setClothingItems(data)
+      })
+      .catch(console.error)
   }, [])
 
   // POST Items
-
 
   return (
     <div className='page'>
@@ -111,8 +112,11 @@ const App = () => {
               path='/profile'
               element={
                 <Profile
-                  onClardClick={handleCardClick}
+                  onCardClick={handleCardClick}
                   closeActiveModal={closeActiveModal}
+                  clothingItems={clothingItems}
+                  onAddItem={onAddItem}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5001'
+const baseUrl = 'http://localhost:3001'
 
 export const getItems = () => {
   return fetch(`${baseUrl}/items`)
@@ -14,6 +14,8 @@ export const getItems = () => {
 }
 
 export const addItem = (name, imageUrl, weather) => {
+  // console.log(name, imageUrl, weather)
+
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
     headers: {
