@@ -58,7 +58,7 @@ const App = () => {
   const handleCardDelete = card => {
     deleteItem(card.id)
       .then(() => {
-        setClothingItems(clothingItems.filter(item => item.id !== card.id))
+        setClothingItems(clothingItems.filter(item => item.id !== card._id))
         closeActiveModal()
       })
       .catch(console.error)
