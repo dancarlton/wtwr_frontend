@@ -21,12 +21,17 @@ function AddItemModal({ activeModal, closeActiveModal, onAddItem, isOpen }) {
     }
 
     onAddItem(formData)
+      .then(() => {
+        setName('')
+        setImageUrl('')
+        setWeatherType('')
 
-    setName('')
-    setImageUrl('')
-    setWeatherType('')
-
-    closeActiveModal()
+        closeActiveModal()
+      })
+      .catch(err => {
+        console.error('Error adding item:', err)
+        alert('Could not add clothing item!')
+      })
   }
 
   return (
@@ -36,6 +41,7 @@ function AddItemModal({ activeModal, closeActiveModal, onAddItem, isOpen }) {
       onClose={closeActiveModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      buttonText='Add garment'
     >
       <label htmlFor='name' className='modal__label'>
         Name{' '}
@@ -98,7 +104,6 @@ function AddItemModal({ activeModal, closeActiveModal, onAddItem, isOpen }) {
           Cold
         </label>
       </fieldset>
-      <button className='modal__submit'>Add garment</button>
     </ModalWithForm>
   )
 }

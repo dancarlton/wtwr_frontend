@@ -46,13 +46,13 @@ const App = () => {
   }
 
   const onAddItem = formData => {
-    addItem(formData.name, formData.imageUrl, formData.weatherType)
-      .then(savedItem => {
+    return addItem(formData.name, formData.imageUrl, formData.weatherType).then(
+      savedItem => {
         if (savedItem) {
           setClothingItems([savedItem, ...clothingItems])
         }
-      })
-      .catch(console.error)
+      }
+    )
   }
 
   const handleCardDelete = card => {
@@ -61,7 +61,10 @@ const App = () => {
         setClothingItems(clothingItems.filter(item => item._id !== card._id))
         closeActiveModal()
       })
-      .catch(console.error)
+      .catch(err => {
+        console.error('Error deleting item:', err)
+        alert('Could not delete item!')
+      })
   }
 
   const openConfirmationModal = () => {
@@ -135,9 +138,7 @@ const App = () => {
             onClose={closeActiveModal}
             onDelete={handleCardDelete}
           />
-          <ConfirmationModal
-            isOpen={activeModal === 'delete-confirmation'}
-          />
+          <ConfirmationModal isOpen={activeModal === 'delete-confirmation'} />
         </div>
       </CurrentTemperatureUnitContext.Provider>
     </div>

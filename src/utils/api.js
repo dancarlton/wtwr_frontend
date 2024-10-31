@@ -1,5 +1,6 @@
 const baseUrl = 'http://localhost:3001'
 
+
 export const getItems = () => {
   return fetch(`${baseUrl}/items`)
     .then(response => {
@@ -8,9 +9,7 @@ export const getItems = () => {
       }
       return response.json()
     })
-    .catch(error => {
-      console.error('Error fetching items:', error)
-    })
+
 }
 
 export const addItem = (name, imageUrl, weather) => {
@@ -29,9 +28,7 @@ export const addItem = (name, imageUrl, weather) => {
       }
       return response.json()
     })
-    .catch(error => {
-      console.error('Error adding item:', error)
-    })
+
 }
 
 export const deleteItem = (id) => {
@@ -43,7 +40,4 @@ export const deleteItem = (id) => {
           throw new Error('Failed to delete item');
         }
       })
-      .catch(error => {
-        console.error('Error deleting item:', error);
-      });
   };
