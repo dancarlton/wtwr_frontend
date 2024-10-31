@@ -32,7 +32,6 @@ function AddItemModal({ activeModal, closeActiveModal, onAddItem, isOpen }) {
   return (
     <ModalWithForm
       title='New garment'
-      buttonText='Add garment'
       activeModal={activeModal}
       onClose={closeActiveModal}
       isOpen={isOpen}
@@ -99,6 +98,7 @@ function AddItemModal({ activeModal, closeActiveModal, onAddItem, isOpen }) {
           Cold
         </label>
       </fieldset>
+      <button className='modal__submit'>Add garment</button>
     </ModalWithForm>
   )
 }

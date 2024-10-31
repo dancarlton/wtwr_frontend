@@ -58,15 +58,15 @@ const App = () => {
   const handleCardDelete = card => {
     deleteItem(card._id)
       .then(() => {
-        setClothingItems(clothingItems.filter(item => item.id !== card._id))
+        setClothingItems(clothingItems.filter(item => item._id !== card._id))
         closeActiveModal()
       })
       .catch(console.error)
   }
 
-  // const openConfirmationModal = () => {
-  //   //
-  // }
+  const openConfirmationModal = () => {
+    setActiveModal('delete-confirmation')
+  }
 
   useEffect(() => {
     // debugger
@@ -135,7 +135,9 @@ const App = () => {
             onClose={closeActiveModal}
             onDelete={handleCardDelete}
           />
-          <ConfirmationModal />
+          <ConfirmationModal
+            isOpen={activeModal === 'delete-confirmation'}
+          />
         </div>
       </CurrentTemperatureUnitContext.Provider>
     </div>

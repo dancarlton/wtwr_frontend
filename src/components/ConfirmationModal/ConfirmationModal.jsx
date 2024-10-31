@@ -1,13 +1,17 @@
+import ModalWithForm from '../ModalWithForm/ModalWithForm'
 import './ConfirmationModal.css'
 
-function ConfirmationModal() {
+function ConfirmationModal({isOpen}) {
   return (
-    <div className='modal'>
-      <button className='modal__close'>X</button>
+    <ModalWithForm
+      title='Delete Confirmation'
+    >
       <p className='modal__confirmation-message'></p>
-      <button className='modal__delete'>Yes, delete item</button>
-      <button className='modal__cancel'>Cancel</button>
-    </div>
+      <button type="submit" className='modal__delete'>Yes, delete item</button>
+      <button type="button" className='modal__cancel'>Cancel</button>
+
+    </ModalWithForm>
+
   )
 }
 
