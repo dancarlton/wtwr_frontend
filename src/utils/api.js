@@ -1,15 +1,16 @@
 const baseUrl = 'http://localhost:3001'
 
+const checkResponse = (res) => {
+  
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Error ${res.status}`)
+
+}
 
 export const getItems = () => {
-  return fetch(`${baseUrl}/items`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch items')
-      }
-      return response.json()
-    })
-
+  return fetch(`${baseUrl}/items`).then(checkResponse)
 }
 
 export const addItem = (name, imageUrl, weather) => {
@@ -21,23 +22,11 @@ export const addItem = (name, imageUrl, weather) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, imageUrl, weather }),
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to add item')
-      }
-      return response.json()
-    })
-
+  }).then(checkResponse)
 }
 
-export const deleteItem = (id) => {
-    return fetch(`${baseUrl}/items/${id}`, {
-      method: 'DELETE'
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to delete item');
-        }
-      })
-  };
+export const deleteItem = id => {
+  return fetch(`${baseUrl}/items/${id}`, {
+    method: 'DELETE',
+  }).then(checkResponse)
+}
