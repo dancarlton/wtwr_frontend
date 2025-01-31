@@ -1,7 +1,7 @@
 const baseUrl = 'http://localhost:3001'
 
 const checkResponse = (res) => {
-  
+
     if (res.ok) {
       return res.json()
     }
@@ -30,3 +30,4 @@ export const deleteItem = id => {
     method: 'DELETE',
   }).then(checkResponse)
 }
+

@@ -4,7 +4,13 @@ import avatar from '/src/assets/avatar-true.svg'
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch'
 import { Link } from 'react-router-dom'
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  handleLoginClick,
+  handleRegisterClick,
+}) {
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
@@ -23,19 +29,32 @@ function Header({ handleAddClick, weatherData }) {
       <div className='header__toggle-switch'>
         <ToggleSwitch />
       </div>
-      <button
-        onClick={handleAddClick}
-        type='button'
-        className='header__add-clothes-button'
-      >
-        + Add clothes
-      </button>
-      <div className='header__user-container'>
-        <p className='header__username'>Terrence Tegegne</p>
-        <Link to='/profile'>
-          <img src={avatar} alt='Terrence Tegegne' className='header__avatar' />
-        </Link>
-      </div>
+      {!isLoggedIn ? (
+        <div>
+          <button onClick={handleLoginClick}>Login</button>
+          <button onClick={handleRegisterClick}>Register</button>
+        </div>
+      ) : (
+        <div>
+          <button
+            onClick={handleAddClick}
+            type='button'
+            className='header__add-clothes-button'
+          >
+            + Add clothes
+          </button>
+          <div className='header__user-container'>
+            <p className='header__username'>Terrence Tegegne</p>
+            <Link to='/profile'>
+              <img
+                src={avatar}
+                alt='Terrence Tegegne'
+                className='header__avatar'
+              />
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
