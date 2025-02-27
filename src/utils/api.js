@@ -1,14 +1,14 @@
 const baseUrl = 'http://localhost:3001'
 
-function getToken(){
+function getToken() {
   return localStorage.getItem('jwt')
 }
 
-const checkResponse = (res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Error ${res.status}`)
+const checkResponse = res => {
+  if (res.ok) {
+    return res.json()
+  }
+  return Promise.reject(`Error ${res.status}`)
 }
 
 export const getItems = () => {
@@ -16,12 +16,11 @@ export const getItems = () => {
 }
 
 export const addItem = (name, imageUrl, weather) => {
-
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': `Bearer ${getToken()}`,
+      authorization: `Bearer ${getToken()}`,
     },
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then(checkResponse)
@@ -33,24 +32,36 @@ export const deleteItem = id => {
   }).then(checkResponse)
 }
 
-export const editProfile = (name, imageUrl) => {
-  return fetch(`${baseUrl}/users`, {
-    method: 'POST',
+export const editProfile = (name, avatar) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': `Bearer ${getToken()}`,
+      authorization: `Bearer ${getToken()}`,
     },
-    body: JSON.stringify({ name, imageUrl }),
+    body: JSON.stringify({ name, avatar }),
   }).then(checkResponse)
 }
 
-export const addCardLike = (id, token) => {
-  return fetch(`${baseUrl}/items`, {
-    method: 'POST',
+export const addCardLike = (id) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': `Bearer ${getToken()}`,
+      authorization: `Bearer ${getToken()}`,
     },
-    body: JSON.stringify({ id, token }),
+
+  }).then(checkResponse)
+}
+
+
+export const removeCardLike = (id) => {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${getToken()}`,
+    },
+
   }).then(checkResponse)
 }

@@ -8,31 +8,21 @@ function EditProfileModal({
   onSaveChanges,
 }) {
     const [name, setName] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
+    const [avatar, setAvatar] = useState('')
 
     const handleNameChange = e => setName(e.target.value)
-    const handleImageUrlChange = e => setImageUrl(e.target.value)
+    const handleAvatarChange = e => setAvatar(e.target.value)
 
     const handleSubmit = e => {
         e.preventDefault()
 
         const formData = {
             name,
-            imageUrl
+            avatar
         }
 
         onSaveChanges(formData)
-            .then(()=> {
-                setName('')
-                setImageUrl('')
-
-                closeActiveModal()
-            }).catch(err => {
-                console.error('Error updating profile:', err)
-                alert('Could not update profile!')
-              })
     }
-
 
 
   return (
@@ -55,18 +45,17 @@ function EditProfileModal({
           onChange={handleNameChange}
         />
       </label>
-      <label htmlFor='imageUrl' className='modal__label'>
+      <label htmlFor='avatar' className='modal__label'>
         Avatar{' '}
         <input
           type='text'
           className='modal__input'
-          id='imageUrl'
+          id='avatar'
           placeholder='Image Url'
-          value={imageUrl}
-          onChange={handleImageUrlChange}
+          value={avatar}
+          onChange={handleAvatarChange}
         />
       </label>
-
     </ModalWithForm>
   )
 }

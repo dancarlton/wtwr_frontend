@@ -15,7 +15,14 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Profile from '../Profile/Profile'
 import AddItemModal from '../AddItemModal/AddItemModal'
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal'
-import { getItems, addItem, deleteItem, editProfile } from '../../utils/api'
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  editProfile,
+  addCardLike,
+  removeCardLike,
+} from '../../utils/api'
 
 import ProtectedRoute from '../ProtectedRoute'
 
@@ -101,7 +108,6 @@ const App = () => {
       })
   }
 
-
   const handleRegistration = ({ name, email, password, imageUrl }) => {
     if (password) {
       return auth.register(name, email, password, imageUrl).then(() => {
@@ -110,9 +116,13 @@ const App = () => {
     }
   }
 
-  const handleProfileEdit = ({ name, imageUrl}) => {
-    editProfile(name, imageUrl)
-      .then(setUserData(name, imageUrl))
+  const handleProfileEdit = ({ name, avatar }) => {
+    editProfile(name, avatar)
+      .then(data => {
+        setUserData(data)
+
+        closeActiveModal()
+      })
       .catch(err => {
         console.error('Error updating profile data:', err)
         alert('Could not update profile!')
@@ -121,6 +131,10 @@ const App = () => {
 
   const storeToken = token => {
     localStorage.setItem('jwt', token)
+  }
+
+  const removeToken = token => {
+    localStorage.removeItem('jwt', token)
   }
 
   const handleLogin = ({ email, password }) => {
@@ -137,31 +151,41 @@ const App = () => {
     })
   }
 
-  // const handleCardLike = ({ id, isLiked }) => {
-  //   const token = localStorage.getItem("jwt");
-  //   // Check if this card is not currently liked
-  //   !isLiked
-  //     ? // if so, send a request to add the user's id to the card's likes array
-  //       api
-  //         // the first argument is the card's id
-  //         .addCardLike(id, token)
-  //         .then((updatedCard) => {
-  //           setClothingItems((cards) =>
-  //             cards.map((item) => (item._id === id ? updatedCard : item))
-  //           );
-  //         })
-  //         .catch((err) => console.log(err))
-  //     : // if not, send a request to remove the user's id from the card's likes array
-  //       api
-  //         // the first argument is the card's id
-  //         .removeCardLike(id, token)
-  //         .then((updatedCard) => {
-  //           setClothingItems((cards) =>
-  //             cards.map((item) => (item._id === id ? updatedCard : item))
-  //           );
-  //         })
-  //         .catch((err) => console.log(err));
-  // };
+  const handleLogout = () => {
+
+      removeToken()
+      setUserData({
+        _id: '',
+        name: '',
+        email: '',
+        avatar: '',
+      })
+      setIsLoggedIn(false)
+
+      navigate('/')
+    }
+  
+
+  const handleCardLike = ({ id, isLiked }) => {
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        addCardLike(id)
+          .then(updatedCard => {
+            setClothingItems(cards =>
+              cards.map(item => (item._id === id ? updatedCard : item))
+            )
+          })
+          .catch(err => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        removeCardLike(id)
+          .then(updatedCard => {
+            setClothingItems(cards =>
+              cards.map(item => (item._id === id ? updatedCard : item))
+            )
+          })
+          .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     // debugger
@@ -199,7 +223,6 @@ const App = () => {
       .catch(console.error)
   }, [])
 
-
   return (
     <CurrentUserContext.Provider value={{ userData, isLoggedIn }}>
       <div className='page'>
@@ -223,6 +246,7 @@ const App = () => {
                     handleCardClick={handleCardClick}
                     weatherData={weatherData}
                     clothingItems={clothingItems}
+                    handleCardLike={handleCardLike}
                   />
                 }
               />
@@ -237,6 +261,8 @@ const App = () => {
                       onAddItem={onAddItem}
                       handleAddClick={handleAddClick}
                       handleEditProfileClick={handleEditProfileClick}
+                      handleCardLike={handleCardLike}
+                      handleLogout={handleLogout}
                     />
                   </ProtectedRoute>
                 }
@@ -272,6 +298,7 @@ const App = () => {
               isOpen={activeModal === 'edit-profile'}
               activeModal={activeModal}
               closeActiveModal={closeActiveModal}
+              onSaveChanges={handleProfileEdit}
             />
 
             <ConfirmationModal isOpen={activeModal === 'delete-confirmation'} />
