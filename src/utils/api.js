@@ -1,12 +1,14 @@
 const baseUrl = 'http://localhost:3001'
 
-const checkResponse = (res) => {
+function getToken(){
+  return localStorage.getItem('jwt')
+}
 
+const checkResponse = (res) => {
     if (res.ok) {
       return res.json()
     }
     return Promise.reject(`Error ${res.status}`)
-
 }
 
 export const getItems = () => {
@@ -14,12 +16,12 @@ export const getItems = () => {
 }
 
 export const addItem = (name, imageUrl, weather) => {
-  // console.log(name, imageUrl, weather)
 
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': `Bearer ${getToken()}`,
     },
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then(checkResponse)
@@ -31,3 +33,24 @@ export const deleteItem = id => {
   }).then(checkResponse)
 }
 
+export const editProfile = (name, imageUrl) => {
+  return fetch(`${baseUrl}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ name, imageUrl }),
+  }).then(checkResponse)
+}
+
+export const addCardLike = (id, token) => {
+  return fetch(`${baseUrl}/items`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ id, token }),
+  }).then(checkResponse)
+}

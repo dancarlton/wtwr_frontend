@@ -1,4 +1,26 @@
-.sidebar {
+.sidebar__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+}
+
+.sidebar-title {
     display: flex;
     gap: 16px;
+}
+
+.sidebar-content {
+    margin: 16px 0;
+}
+
+.sidebar-content button {
+    all: unset;
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sidebar__user-name {
+    font-weight: bold;
 }

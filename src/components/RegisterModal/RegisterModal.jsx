@@ -22,6 +22,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
       name,
       email,
       password,
+      imageUrl
     }
 
     onRegister(formData)

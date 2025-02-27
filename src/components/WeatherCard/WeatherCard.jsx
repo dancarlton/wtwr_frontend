@@ -5,7 +5,7 @@ import { useContext } from 'react'
 
 function WeatherCard({ weatherData }) {
   // debugger
-  const {currentTemperatureUnit} = useContext(CurrentTemperatureUnitContext)
+  const {currentTemperatureUnit} = useContext(CurrentTemperatureUnitContext) // {currentTemperatureUnit: "F", handleToggleSwitchChange: ()=>{sdf}}
 
   const filteredOptions = weatherOptions.filter(option => {
     return (
