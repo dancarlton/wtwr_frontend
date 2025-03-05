@@ -92,7 +92,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen, hand
       </label>
       <div className='modal__secondary-button'>
         <p>or</p>
-        <button className='modal__login' onClick={handleLoginClick}>Login</button>
+        <button type='button' className='modal__login' onClick={handleLoginClick}>Login</button>
       </div>
     </ModalWithForm>
   )

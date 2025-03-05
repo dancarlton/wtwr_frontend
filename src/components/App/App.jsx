@@ -39,7 +39,7 @@ const App = () => {
     city: '',
   })
   const [activeModal, setActiveModal] = useState('')
-  const [selectedCard, setSelectedCard] = useState('')
+  const [selectedCard, setSelectedCard] = useState({})
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F')
   const [clothingItems, setClothingItems] = useState([])
   const [userData, setUserData] = useState({
@@ -49,6 +49,7 @@ const App = () => {
     avatar: '',
   })
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading ] = useState(false)
 
   const navigate = useNavigate()
 
@@ -115,15 +116,21 @@ const App = () => {
   }
 
   const handleProfileEdit = ({ name, avatar }) => {
+
+
+    setIsLoading(true)
+
     editProfile(name, avatar)
       .then(data => {
         setUserData(data)
-
         closeActiveModal()
       })
       .catch(err => {
         console.error('Error updating profile data:', err)
         alert('Could not update profile!')
+      })
+      .finally(() => {
+        setIsLoading(true)
       })
   }
 
@@ -182,6 +189,24 @@ const App = () => {
           })
           .catch(err => console.log(err))
   }
+
+  useEffect(() => {
+    if (!activeModal) return // stop the effect not to add the listener if there is no active modal
+
+    const handleEscClose = e => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === 'Escape') {
+        closeActiveModal()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscClose)
+
+    return () => {
+      // don't forget to add a clean up function for removing the listener
+      document.removeEventListener('keydown', handleEscClose)
+    }
+  }, [activeModal]) // watch activeModal here
 
   useEffect(() => {
     // debugger
@@ -261,7 +286,6 @@ const App = () => {
                       handleCardLike={handleCardLike}
                       handleLogout={handleLogout}
                       isLoggedIn={isLoggedIn}
-
                     />
                   </ProtectedRoute>
                 }
@@ -294,13 +318,13 @@ const App = () => {
               card={selectedCard || {}}
               onClose={closeActiveModal}
               onDelete={handleCardDelete}
-
             />
             <EditProfileModal
               isOpen={activeModal === 'edit-profile'}
               activeModal={activeModal}
               closeActiveModal={closeActiveModal}
               onSaveChanges={handleProfileEdit}
+              isLoading={isLoading}
             />
 
             <ConfirmationModal isOpen={activeModal === 'delete-confirmation'} />

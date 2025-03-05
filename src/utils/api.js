@@ -4,7 +4,7 @@ function getToken() {
   return localStorage.getItem('jwt')
 }
 
-const checkResponse = res => {
+export const checkResponse = res => {
   if (res.ok) {
     return res.json()
   }
