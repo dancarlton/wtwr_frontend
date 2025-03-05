@@ -44,7 +44,10 @@
 
 .item__like_clicked {
   background-image: url('../../assets/like-button_clicked.svg');
+}
 
+.item__like_removed {
+  display: none;
 }
 
 

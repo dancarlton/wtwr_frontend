@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ModalWithForm from '../ModalWithForm/ModalWithForm'
+import CurrentUserContext from '../../contexts/CurrentUserContext'
 
 function EditProfileModal({
   activeModal,
@@ -23,6 +24,16 @@ function EditProfileModal({
 
         onSaveChanges(formData)
     }
+
+    const { userData } = useContext(CurrentUserContext)
+
+    useEffect(() => {
+      if (isOpen && userData) {
+        setName(userData.name || '')
+        setAvatar(userData.avatar || '')
+      }
+    }, [isOpen, userData])
+
 
 
   return (
@@ -51,7 +62,7 @@ function EditProfileModal({
           type='text'
           className='modal__input'
           id='avatar'
-          placeholder='Image Url'
+          placeholder='Image URL'
           value={avatar}
           onChange={handleAvatarChange}
         />

@@ -2,18 +2,16 @@ import { useState } from 'react'
 import ModalWithForm from '../ModalWithForm/ModalWithForm'
 import './RegisterModal.css'
 
-function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
+function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen, handleLoginClick }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [imageUrl, setImageUrl] = useState('')
 
-
   const handleNameChange = e => setName(e.target.value)
   const handleEmailChange = e => setEmail(e.target.value)
   const handlePasswordChange = e => setPassword(e.target.value)
   const handleImageUrlChange = e => setImageUrl(e.target.value)
-
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -22,7 +20,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
       name,
       email,
       password,
-      imageUrl
+      imageUrl,
     }
 
     onRegister(formData)
@@ -41,7 +39,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
 
   return (
     <ModalWithForm
-      title='Register'
+      title='Sign Up'
       activeModal={activeModal}
       onClose={closeActiveModal}
       isOpen={isOpen}
@@ -49,7 +47,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
       buttonText='Sign up'
     >
       <label htmlFor='email' className='modal__label'>
-        Email{' '}
+        Email*{' '}
         <input
           type='email'
           className='modal__input'
@@ -60,7 +58,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
         />
       </label>
       <label htmlFor='password' className='modal__label'>
-        Password{' '}
+        Password*{' '}
         <input
           type='text'
           className='modal__input'
@@ -71,7 +69,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
         />
       </label>
       <label htmlFor='name' className='modal__label'>
-        Name{' '}
+        Name*{' '}
         <input
           type='text'
           className='modal__input'
@@ -82,7 +80,7 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
         />
       </label>
       <label htmlFor='imageUrl' className='modal__label'>
-        Avatar URL{' '}
+        Avatar URL*{' '}
         <input
           type='text'
           className='modal__input'
@@ -92,6 +90,10 @@ function RegisterModal({ activeModal, closeActiveModal, onRegister, isOpen }) {
           onChange={handleImageUrlChange}
         />
       </label>
+      <div className='modal__secondary-button'>
+        <p>or</p>
+        <button className='modal__login' onClick={handleLoginClick}>Login</button>
+      </div>
     </ModalWithForm>
   )
 }

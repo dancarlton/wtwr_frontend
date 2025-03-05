@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ModalWithForm from '../ModalWithForm/ModalWithForm'
 import './LoginModal.css'
 
-function LoginModal({ activeModal, closeActiveModal, onLogin, isOpen }) {
+function LoginModal({ activeModal, closeActiveModal, onLogin, isOpen, handleRegisterClick }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -32,12 +32,12 @@ function LoginModal({ activeModal, closeActiveModal, onLogin, isOpen }) {
 
   return (
     <ModalWithForm
-      title='Login'
+      title='Log In'
       activeModal={activeModal}
       onClose={closeActiveModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      buttonText='Login'
+      buttonText='Log In'
     >
       <label htmlFor='email' className='modal__label'>
         Email{' '}
@@ -61,6 +61,10 @@ function LoginModal({ activeModal, closeActiveModal, onLogin, isOpen }) {
           onChange={handlePasswordChange}
         />
       </label>
+      <div className='modal__secondary-button'>
+        <p>or</p>
+        <button className='modal__login' onClick={handleRegisterClick}>Sign Up</button>
+      </div>
     </ModalWithForm>
   )
 }

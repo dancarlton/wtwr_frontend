@@ -6,6 +6,7 @@ function ClothesSection({
   handleAddClick,
   clothingItems,
   handleCardLike,
+  isLoggedIn
 }) {
   return (
     <div className='clothes-section'>
@@ -27,6 +28,7 @@ function ClothesSection({
               item={item}
               onCardClick={onCardClick}
               handleCardLike={handleCardLike}
+              isLoggedIn={isLoggedIn}
             />
           )
         })}

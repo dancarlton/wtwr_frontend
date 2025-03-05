@@ -53,7 +53,7 @@ const App = () => {
   const navigate = useNavigate()
 
   const handleCardClick = card => {
-    console.log(card)
+    // console.log(card)
     if (!card || Object.keys(card).length === 0) {
       console.warn('handleCardClick: No valid card provided!', card)
       return
@@ -89,9 +89,7 @@ const App = () => {
   const onAddItem = formData => {
     return addItem(formData.name, formData.imageUrl, formData.weatherType).then(
       savedItem => {
-        if (savedItem) {
-          setClothingItems([savedItem, ...clothingItems])
-        }
+        setClothingItems([savedItem, ...clothingItems])
       }
     )
   }
@@ -152,19 +150,17 @@ const App = () => {
   }
 
   const handleLogout = () => {
+    removeToken()
+    setUserData({
+      _id: '',
+      name: '',
+      email: '',
+      avatar: '',
+    })
+    setIsLoggedIn(false)
 
-      removeToken()
-      setUserData({
-        _id: '',
-        name: '',
-        email: '',
-        avatar: '',
-      })
-      setIsLoggedIn(false)
-
-      navigate('/')
-    }
-  
+    navigate('/')
+  }
 
   const handleCardLike = ({ id, isLiked }) => {
     // Check if this card is not currently liked
@@ -247,6 +243,7 @@ const App = () => {
                     weatherData={weatherData}
                     clothingItems={clothingItems}
                     handleCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -263,6 +260,8 @@ const App = () => {
                       handleEditProfileClick={handleEditProfileClick}
                       handleCardLike={handleCardLike}
                       handleLogout={handleLogout}
+                      isLoggedIn={isLoggedIn}
+
                     />
                   </ProtectedRoute>
                 }
@@ -275,12 +274,14 @@ const App = () => {
               closeActiveModal={closeActiveModal}
               activeModal={activeModal}
               onRegister={handleRegistration}
+              handleLoginClick={handleLoginClick}
             />
             <LoginModal
               isOpen={activeModal === 'login-modal'}
               closeActiveModal={closeActiveModal}
               activeModal={activeModal}
               onLogin={handleLogin}
+              handleRegisterClick={handleRegisterClick}
             />
             <AddItemModal
               isOpen={activeModal === 'add-garment'}
@@ -293,6 +294,7 @@ const App = () => {
               card={selectedCard || {}}
               onClose={closeActiveModal}
               onDelete={handleCardDelete}
+
             />
             <EditProfileModal
               isOpen={activeModal === 'edit-profile'}
