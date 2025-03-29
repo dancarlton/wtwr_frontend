@@ -1,6 +1,6 @@
 const baseUrl = process.env.NODE_ENV === "production"
   ? "put the URL for your deployed backend here, including https://"
-  : "http://localhost:3001";
+  : "http://api.dan12345.hardsoft.nu";
 
 function getToken() {
   return localStorage.getItem('jwt')

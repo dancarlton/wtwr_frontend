@@ -2,7 +2,7 @@ import { checkResponse } from './api'
 
 export const BASE_URL = process.env.NODE_ENV === "production"
   ? "put the URL for your deployed backend here, including https://"
-  : "http://localhost:3001";
+  : "http://api.dan12345.hardsoft.nu";
 
 export const register = (name, email, password, avatar) => {
   return fetch(`${BASE_URL}/signup`, {
