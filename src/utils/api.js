@@ -1,6 +1,6 @@
 const baseUrl = process.env.NODE_ENV === "production"
   ? "https://api.dan12345.hardsoft.nu"
-  : "http://api.dan12345.hardsoft.nu";
+  : "https://api.dan12345.hardsoft.nu";
 
 function getToken() {
   return localStorage.getItem('jwt')
