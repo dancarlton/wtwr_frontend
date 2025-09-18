@@ -22,7 +22,7 @@ function Header({
   return (
     <header className='header'>
       <div className='header__logo'>
-        <Link to='/'>
+        <Link to='/wtwr_frontend'>
           <img src={logo} alt='WTWR Logo' className='header__logo' />
         </Link>
       </div>
