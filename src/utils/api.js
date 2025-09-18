@@ -1,6 +1,6 @@
 export const baseUrl =
   import.meta.env.MODE === 'production'
-    ? 'https://wtwr-backend.onrender.com'
+    ? 'https://wtwr-backend-gr4k.onrender.com/'
     : 'http://localhost:3001'
 
 function getToken() {

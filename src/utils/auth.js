@@ -1,8 +1,9 @@
 import { checkResponse } from './api'
 
-export const baseUrl = import.meta.env.MODE === "production"
-  ? "https://wtwr-backend.onrender.com"
-  : "http://localhost:3001";
+export const baseUrl =
+  import.meta.env.MODE === 'production'
+    ? 'https://wtwr-backend-gr4k.onrender.com/'
+    : 'http://localhost:3001'
 
 export const register = (name, email, password, avatar) => {
   return fetch(`${baseUrl}/signup`, {
@@ -11,8 +12,8 @@ export const register = (name, email, password, avatar) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then(checkResponse);
-};
+  }).then(checkResponse)
+}
 
 export const authorize = (email, password) => {
   return fetch(`${baseUrl}/signin`, {
