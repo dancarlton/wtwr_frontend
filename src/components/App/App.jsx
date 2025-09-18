@@ -261,7 +261,7 @@ const App = () => {
 
             <Routes>
               <Route
-                path='/'
+                path='/wtwr_frontend'
                 element={
                   <Main
                     handleCardClick={handleCardClick}

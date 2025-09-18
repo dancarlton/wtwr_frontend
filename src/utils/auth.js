@@ -2,7 +2,7 @@ import { checkResponse } from './api'
 
 export const baseUrl =
   import.meta.env.MODE === 'production'
-    ? 'https://wtwr-backend-gr4k.onrender.com/'
+    ? 'https://wtwr-backend-gr4k.onrender.com'
     : 'http://localhost:3001'
 
 export const register = (name, email, password, avatar) => {
