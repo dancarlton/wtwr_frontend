@@ -1,6 +1,6 @@
 const baseUrl = process.env.NODE_ENV === "production"
-  ? "https://api.dan12345.hardsoft.nu"
-  : "https://api.dan12345.hardsoft.nu";
+  ? "https://wtwr-backend.onrender.com"
+  : "http://localhost:3001";
 
 function getToken() {
   return localStorage.getItem('jwt')
