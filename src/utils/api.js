@@ -1,6 +1,7 @@
-const baseUrl = process.env.NODE_ENV === "production"
-  ? "https://wtwr-backend.onrender.com"
-  : "http://localhost:3001";
+export const baseUrl =
+  import.meta.env.MODE === 'production'
+    ? 'https://wtwr-backend.onrender.com'
+    : 'http://localhost:3001'
 
 function getToken() {
   return localStorage.getItem('jwt')
@@ -49,25 +50,22 @@ export const editProfile = (name, avatar) => {
   }).then(checkResponse)
 }
 
-export const addCardLike = (id) => {
+export const addCardLike = id => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${getToken()}`,
     },
-
   }).then(checkResponse)
 }
 
-
-export const removeCardLike = (id) => {
+export const removeCardLike = id => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${getToken()}`,
     },
-
   }).then(checkResponse)
 }
