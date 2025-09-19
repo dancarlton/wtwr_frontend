@@ -31,6 +31,7 @@ import RegisterModal from '../RegisterModal/RegisterModal'
 import LoginModal from '../LoginModal/LoginModal'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import EditProfileModal from '../EditProfileModal/EditProfileModal'
+import WakingUpModal from '../WakingUpModal/WakingUpModal'
 
 const App = () => {
   const [weatherData, setWeatherData] = useState({
@@ -49,7 +50,8 @@ const App = () => {
     avatar: '',
   })
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [isLoading, setIsLoading ] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isWakingUp, setIsWakingUp] = useState(false)
 
   const navigate = useNavigate()
 
@@ -116,8 +118,6 @@ const App = () => {
   }
 
   const handleProfileEdit = ({ name, avatar }) => {
-
-
     setIsLoading(true)
 
     editProfile(name, avatar)
@@ -237,11 +237,15 @@ const App = () => {
 
   // GET Items
   useEffect(() => {
+    setIsWakingUp(true)
     getItems()
       .then(data => {
         setClothingItems(data)
       })
       .catch(console.error)
+      .finally(() => {
+        setIsWakingUp(false)
+      })
   }, [])
 
   return (
@@ -326,6 +330,9 @@ const App = () => {
               onSaveChanges={handleProfileEdit}
               isLoading={isLoading}
             />
+            {/* {isWakingUp && ( */}
+            <WakingUpModal isOpen={isWakingUp} />
+            {/* )} */}
 
             <ConfirmationModal isOpen={activeModal === 'delete-confirmation'} />
           </div>
