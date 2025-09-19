@@ -244,7 +244,12 @@ const App = () => {
       })
       .catch(console.error)
       .finally(() => {
-        setIsWakingUp(false)
+        const timer = setTimeout(() => {
+
+          setIsWakingUp(false)
+        }, 1500)
+
+        return () => clearTimeout(timer)
       })
   }, [])
 

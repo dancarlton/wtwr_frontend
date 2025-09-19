@@ -3,15 +3,14 @@ import './WakingUpModal.css'
 import spinner from '../../assets/fingers-loading.json'
 import Lottie from 'lottie-react'
 
-function WakingUpModal({ isOpen, onClose }) {
+function WakingUpModal({ isOpen }) {
   return (
     <ModalWithForm
-      activeModal="waking-up"
+      activeModal='waking-up'
       isOpen={isOpen}
-      onClose={onClose}
-      buttonText="Close"
+      className='waking-up'
     >
-      <div className="modal__content">
+      <div className='modal__content'>
         <Lottie animationData={spinner} />
         <p>☁️ The WTWR servers are waking up…</p>
         <p>Please wait a few moments while we get things ready.</p>

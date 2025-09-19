@@ -1,24 +1,24 @@
-.modal__content {
+.waking-up .modal__content {
   text-align: center;
   font-size: 1.1rem;
   line-height: 1.6;
   padding: 20px;
 }
 
-.modal__content p:first-child {
+.waking-up .modal__content p:first-child {
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.modal__submit {
-    display: none;
+.waking-up .modal__submit {
+  display: none !important;
 }
 
-.modal__close {
-    display: none;
+.waking-up .modal__close {
+  display: none !important;
 }
 
-.modal {
+.waking-up .modal {
   background-color: #000000d3;
 }
